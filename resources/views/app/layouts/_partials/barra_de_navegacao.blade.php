@@ -16,7 +16,11 @@
             <div class="collpase navbar-collapse" id="toggleMobileMenu">
                 <ul class="navbar-nav ms-auto text-center">
                     <li>
+<<<<<<< HEAD
                         <a href="{{ url('/app/cadastra-cliente') }}" class="nav-link">Clientes</a>
+=======
+                        <a href="{{ route('cliente.index') }}" class="nav-link">Clientes</a>
+>>>>>>> 1c096d05fbe3f15b09e4c7eaa67e22ad8f6cd40f
                     </li>
                     <li>
                         <a href="{{ url('/app/cadastrar-divida') }}" class="nav-link">Dívidas</a>
