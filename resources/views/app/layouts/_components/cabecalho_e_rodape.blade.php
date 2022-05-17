@@ -40,7 +40,7 @@
 
     @include('app.layouts._partials.barra_de_navegacao')  {{-- Inlcuindo barra de navegação --}}
 
-    {{-- Informando aonde o conteúdo extendido vai ser colocado --}}
+    {{-- Informando onde o conteúdo extendido vai ser colocado --}}
     @yield('conteudo')
 
     {{-- Javascript para o Bootstrap --}}
