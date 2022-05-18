@@ -14,15 +14,16 @@ class CreateAppDividasTable extends Migration
     public function up()
     {
         Schema::create('app_dividas', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_divida');
 
             $table->unsignedBigInteger('cliente_id');  // Chave estrangeira do cliente
-            $table->string('nome', 80);
-            $table->decimal('valor', 15, 3);  // -999999999999.999 até 999999999999.999 (15 casas normais e 3 após a vírgula)
-            $table->date('data');
-            $table->bigInteger('contrato');
-            $table->string('credor', 80);
-            $table->text('descricao');
+            $table->string('nome_divida', 80);
+            $table->decimal('valor_divida', 15, 3);  // -999999999999.999 até 999999999999.999 (15 casas normais e 3 após a vírgula)
+            $table->date('data_divida');
+            $table->string('contrato_divida', 80);
+            $table->string('credor_divida', 80);
+            $table->text('descricao_divida');
+            $table->integer('pagamento_efetuado')->default(0);  // Se for 0 ele não pagou; se for 1 já pagou
 
             $table->timestamps();
 

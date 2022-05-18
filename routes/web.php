@@ -29,15 +29,11 @@ Route::middleware('autenticar.acesso')->prefix('/app')->group(function () {
 
     Route::match(['get','post'], '/home', 'PaginaInicialController@home')->name('app.paginainicial');
 
-    Route::match(['get','post'], '/cadastrar-divida', 'CadastrarDividaController@cadastrardivida')->name('app.cadastro.divida');
-
-    Route::match(['get','post'], '/vincular-divida', 'VincularDividaController@vincular')->name('app.vincular.divida');
+    Route::match(['get','post'], '/cadastrar-divida', 'CadastrarDividaController@cadastrar')->name('app.cadastro.divida');
 
     Route::match(['get','post'], '/listar-divida', 'ListarDividaController@listardivida')->name('app.listar.divida');
 
-    Route::get('/pesquisa-cliente', 'PesquisaClienteController@pesquisarCliente')->name('app.pesquisa.cliente');
-
-    Route::match(['get','post'], '/listar-cliente', 'ListarClienteController@listarcliente')->name('app.listar.cliente');
+    Route::get('/pesquisa-cliente', 'PesquisaClienteController@pesquisar')->name('app.pesquisa.cliente');
 
     Route::get('/cadastra-cliente', 'ClienteController@index')->name('app.cadastra_cliente');
     Route::post('/cadastra-cliente', 'ClienteController@salvar')->name('app.cadastra_cliente');
