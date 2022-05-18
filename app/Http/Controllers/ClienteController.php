@@ -2,20 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\AppCliente;
+use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
     {
-        return view('app.cadastra_cliente');
+        $request->validate([
+            'pesquisaClienteDevedor' => 'min:1',  // Validando para não ser possivel fazer uma pesquisa vazia
+        ]);
+
+        $consulta = "";
+
+        // Entra se houver requisição. Se a consulta for feita, a solicitação não vai estar vazia
+        if (count($request->all()) != 0) {
+            if (isset($request->all()['todos'])) {  // Entra se o usuário pedir para listar todos os clientes
+                $consulta = AppCliente::all();
+            } else {
+                $pesquisa = $request->all()['pesquisa'];
+
+                $consulta = AppCliente::where('nome', 'like', "%$pesquisa%")  // Operarador LIKE do SQL (SELECT * FROM <tabela> WHERE <coluna> LIKE '%pesquisa%')
+                                    ->orWhere('cpf', $pesquisa)
+                                    ->orWhere('cnpj', $pesquisa)->get();
+            }
+        }
+
+        return view('app.cliente.index', ['consulta' => $consulta]);
     }
 
-    public function salvar(Request $request)
+    /**
+     * Retorna o formulario que será preenchido
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('app.cliente.create');
+    }
+
+    /**
+     * Armazena os dados no banco passando os paramentros da REGEX
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
 
-        // Validação dos dados recebidos do request
+        //Verifica algumas validações antes de enviar o formulario
         $request->validate([
             'tipo_pessoa' => 'required',
             'email' => 'required|unique:app_clientes',
@@ -26,12 +66,7 @@ class ClienteController extends Controller
             'estado' => 'required|max:20'
         ]);
 
-        /*
-            Removendo caracteres quem vem das máscaras ('(', ')', '-', ' ', '.', '/') usando expressão regular (REGEX).
-            Função preg_replace(regex, valor a ser mudado, string para ser mudada)
-                Exemplo de campo regex:
-                    /[-() ]/ -> O regex vai procurar caracteres '-', '(', ')' e ' '
-        */
+        //REGEX que remove os caracteres da mascara JQUERY nos input's
 
         $dados = $request->all();  // Pegando todos os dados do request
         $dados['telefone'] = preg_replace('/[-() ]/', '', $dados['telefone']);
@@ -44,8 +79,55 @@ class ClienteController extends Controller
             $dados['telefoneResponsavel'] = preg_replace('/[-() ]/', '', $dados['telefoneResponsavel']);
         }
 
-        // Função mais enxuta que cria o registro dos dados no banco e redireciona para rota da página inicial
+
+        
+
         AppCliente::create($dados);
-        return redirect()->route('app.paginainicial');
+        return redirect()->route('cliente.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Cliente  $cliente
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Cliente $cliente)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Cliente  $cliente
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Cliente $cliente)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Cliente  $cliente
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Cliente $cliente)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Cliente  $cliente
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Cliente $cliente)
+    {
+        //
     }
 }

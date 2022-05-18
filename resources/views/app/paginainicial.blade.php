@@ -18,10 +18,10 @@
           <div>
             <h2>Clientes</h2>
             <p>Cadastre um novo cliente, ou consulte um já existente.</p>
-            <a href="{{ url('/app/cadastra-cliente') }}" class="btn btn-sm btn-primary">
+            <a href="{{ route('cliente.create') }}" class="btn btn-sm btn-primary">
               Cadastrar
             </a>
-            <a href="{{ url('/app/pesquisa-cliente') }}">
+            <a href="{{ route('cliente.index') }}">
                 <button type="button" class="btn btn-sm btn-info">Pesquisar</button>
             </a>
           </div>
