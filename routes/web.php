@@ -29,8 +29,7 @@ Route::middleware('autenticar.acesso')->prefix('/app')->group(function () {
 
     Route::match(['get','post'], '/home', 'PaginaInicialController@home')->name('app.paginainicial');
 
-    Route::match(['get','post'], '/cadastrar-divida', 'CadastrarDividaController@cadastrar')->name('app.cadastro.divida');
-
+    Route::resource('divida', 'DividaController');
     Route::resource('cliente', 'ClienteController');
 
     Route::middleware('acesso.admin')->group(function () {

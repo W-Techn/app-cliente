@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AppCliente;
+use App\AppDivida;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -27,22 +28,22 @@ class ClienteController extends Controller
                 $pesquisa = $request->all()['pesquisa'];
 
                 $consulta = AppCliente::where('nome', 'like', "%$pesquisa%")  // Operarador LIKE do SQL (SELECT * FROM <tabela> WHERE <coluna> LIKE '%pesquisa%')
-                                    ->orWhere('cpf', $pesquisa)
-                                    ->orWhere('cnpj', $pesquisa)
-                                    ->get()
-                                    ->toArray();
+                                ->orWhere('cpf', $pesquisa)
+                                ->orWhere('cnpj', $pesquisa)
+                                ->get()
+                                ->toArray();
             }
 
             /*
-                Pegando todos os clientes e adicionando um novo atributo (um arrray) de dívidas no array
-                de cada cliente. Estou adicionando todas as dívidas de cada cliente no array. Se ele não
-                tiver dívida o array é vazio; caso contrário o array vai ter as N dívidas dele.
+            Pegando todos os clientes e adicionando um novo atributo (um arrray) de dívidas no array
+            de cada cliente. Estou adicionando todas as dívidas de cada cliente no array. Se ele não
+            tiver dívida o array é vazio; caso contrário o array vai ter as N dívidas dele.
             */
             foreach ($consulta as &$cliente) {
                 $cliente['dividas'] = AppCliente::leftJoin('app_dividas', 'app_clientes.id', '=', 'app_dividas.cliente_id')
-                                                ->where('app_dividas.cliente_id', $cliente['id'])
-                                                ->get()
-                                                ->toArray();
+                                            ->where('app_dividas.cliente_id', $cliente['id'])
+                                            ->get()
+                                            ->toArray();
             }
         }
 
@@ -103,9 +104,10 @@ class ClienteController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \App\AppCliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(AppCliente $cliente)
     {
         //
     }
@@ -113,30 +115,37 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  \App\AppCliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(AppCliente $cliente)
     {
         //
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * Atualiza o campo de 'pagamento efetuado' na tabela de dívidas.
+     ** @param  \Illuminate\Http\Request  $request
+     * @param  int  $id_cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, int $id_cliente)
     {
-        //
+        /*
+            Atualiza o campo de pagamento efetuado na tabela de dívidas e redireciona o usuário
+            para a tela de pesquisar cliente, listando todos
+         */
+        AppDivida::where('id_divida', $request->input('id_divida'))->update(['pagamento_efetuado' => 1]);
+        return redirect()->route('cliente.index', 'todos=true');
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \App\AppCliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy(AppCliente $cliente)
     {
         //
     }

@@ -19,7 +19,7 @@
 
         <div class="col-auto">
             {{-- Cria uma parametro na URL via GET informando para o Controller saber que ele quer todos os clientes --}}
-            <a type="button" href="{{ url('app/cliente?todos=true') }}" class="btn btn-secondary mb-3">Listar todos</a>
+            <a type="button" href="{{ route('cliente.index', 'todos=true') }}" class="btn btn-secondary mb-3">Listar todos</a>
         </div>
 
 
@@ -122,9 +122,31 @@
                                                     <td class="text-center">{{ $divida['credor_divida'] }}</td>
                                                     <td class="text-center">{{ $divida['contrato_divida'] }}</td>
                                                     <td class="text-center">{{ $divida['descricao_divida'] }}</td>
-                                                    <td class="text-center">
-                                                        <button type="button" class="btn btn-primary btn-sm">Já efetuou o pagamento</button>
-                                                    </td>
+
+                                                    @if ($divida['pagamento_efetuado'] == 0)  {{-- Se a dívida ainda não foi paga --}}
+                                                        <td class="text-center">
+
+                                                            {{--
+                                                                Redireciono para o método 'update' de ClienteController passando o id do cliente.
+                                                                Para faciliar a busca da dívida que deseja ser finalizada, crio um input invisível
+                                                                com o id da dívida a ser finalizada.
+                                                            --}}
+
+                                                            <form action="{{ route('cliente.update', $divida['cliente_id']) }}" method="POST">
+                                                                @csrf
+                                                                @method('PATCH')  {{-- O método update faz parte da rota que utiliza o método HTTP PATCH --}}
+
+                                                                <input type="hidden" name="id_divida" value="{{ $divida['id_divida'] }}">
+
+                                                                <button type="submit" class="btn btn-primary btn-sm">Já efetuou o pagamento</button>
+                                                            </form>
+                                                        </td>
+                                                    @else  {{-- Se a dívida já foi paga --}}
+                                                        <td class="text-center">
+                                                            <p class="text-muted h5">Dívida finalizada</p>
+                                                        </td>
+                                                    @endif
+
                                                 </tr>
                                             @endforeach
 
