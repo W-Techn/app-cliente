@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 class CadastrarDividaController extends Controller
 {
-    public function cadastrardivida() {
-        return view('app.cadastrardivida');
+    public function cadastrar()
+    {
+        return view('app.cadastrar_divida');
     }
 }

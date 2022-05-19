@@ -36,9 +36,6 @@
             <a href="{{ url('/app/cadastrar-divida') }}" class="btn btn-sm btn-primary">
               Cadastrar
             </a>
-            <a href="{{ url('/app/listar-divida') }}" class="btn btn-sm btn-info">
-              Listar
-            </a>
           </div>
         </div>
 

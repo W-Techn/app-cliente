@@ -17,14 +17,12 @@ class AutenticacaoMiddleware
     {
         session_start();
 
-        $tipo = $_SESSION['type'];
-        
-        if(isset($_SESSION['email']) && $_SESSION['email'] != ''){
-            
+        // $tipo = $_SESSION['type'];
+
+        if (isset($_SESSION['email']) && $_SESSION['email'] != '') {
             return $next($request);
-        }else{
+        } else {
             return redirect()->route('app.login', ['erro' => 2]);
         };
-        
     }
 }
