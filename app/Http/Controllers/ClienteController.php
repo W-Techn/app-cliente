@@ -135,7 +135,7 @@ class ClienteController extends Controller
             Atualiza o campo de pagamento efetuado na tabela de dívidas e redireciona o usuário
             para a tela de pesquisar cliente, listando todos
          */
-        AppDivida::where('id_divida', $request->input('id_divida'))->update(['pagamento_efetuado' => 1]);
+        AppDivida::where('id_divida', $request->input('id_divida'))->update(['pagamento_efetuado' => 'pago']);
         return redirect()->route('cliente.index', 'todos=true');
     }
 

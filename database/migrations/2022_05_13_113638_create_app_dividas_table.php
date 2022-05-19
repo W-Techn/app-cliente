@@ -23,7 +23,7 @@ class CreateAppDividasTable extends Migration
             $table->string('contrato_divida', 80);
             $table->string('credor_divida', 80);
             $table->text('descricao_divida');
-            $table->integer('pagamento_efetuado')->default(0);  // Se for 0 ele não pagou; se for 1 já pagou
+            $table->string('pagamento_efetuado', 8)->default('pendente');  // Se for 'pendente' ele não pagou; se for 'pago' já pagou
 
             $table->timestamps();
 

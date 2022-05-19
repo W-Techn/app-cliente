@@ -123,7 +123,7 @@
                                                     <td class="text-center">{{ $divida['contrato_divida'] }}</td>
                                                     <td class="text-center">{{ $divida['descricao_divida'] }}</td>
 
-                                                    @if ($divida['pagamento_efetuado'] == 0)  {{-- Se a dívida ainda não foi paga --}}
+                                                    @if ($divida['pagamento_efetuado'] == 'pendente')  {{-- Se a dívida ainda não foi paga --}}
                                                         <td class="text-center">
 
                                                             {{--
