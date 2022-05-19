@@ -125,7 +125,7 @@ class ClienteController extends Controller
 
     /**
      * Atualiza o campo de 'pagamento efetuado' na tabela de dívidas.
-     ** @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id_cliente
      * @return \Illuminate\Http\Response
      */
