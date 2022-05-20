@@ -31,12 +31,7 @@ Route::middleware('autenticar')->prefix('/app')->group(function () {
 
     Route::match(['get','post'], '/home', 'PaginaInicialController@home')->name('app.paginainicial');
 
-    Route::match(['get','post'], '/cadastrar-divida', 'CadastrarDividaController@cadastrardivida')->name('app.cadastro.divida');
-
-    Route::match(['get','post'], '/listar-divida', 'ListarDividaController@listardivida')->name('app.listar.divida');
-
-    Route::match(['get','post'], '/listar-cliente', 'ListarClienteController@listarcliente')->name('app.listar.cliente');
-
+    Route::resource('divida', 'DividaController');
     Route::resource('cliente', 'ClienteController');
 
 

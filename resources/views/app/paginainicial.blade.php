@@ -33,11 +33,8 @@
           <div>
             <h2>Dívidas</h2>
             <p>Cadastre uma nova divida, ou consulte algum débito já existente</p>
-            <a href="{{ url('/app/cadastrar-divida') }}" class="btn btn-sm btn-primary">
+            <a href="{{ route('divida.index') }}" class="btn btn-sm btn-primary">
               Cadastrar
-            </a>
-            <a href="{{ url('/app/listar-divida') }}" class="btn btn-sm btn-info">
-              Listar
             </a>
           </div>
         </div>

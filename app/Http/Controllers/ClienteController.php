@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\AppCliente;
+use App\AppDivida;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Retorna a listagem de clientes com base na pesquisa feita
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,16 +21,29 @@ class ClienteController extends Controller
 
         $consulta = "";
 
-        // Entra se houver requisição. Se a consulta for feita, a solicitação não vai estar vazia
-        if (count($request->all()) != 0) {
+        if (count($request->all()) != 0) {          // Entra se houver requisição. Se a consulta for feita, a solicitação não vai estar vazia
             if (isset($request->all()['todos'])) {  // Entra se o usuário pedir para listar todos os clientes
-                $consulta = AppCliente::all();
+                $consulta = AppCliente::all()->toArray();
             } else {
                 $pesquisa = $request->all()['pesquisa'];
 
                 $consulta = AppCliente::where('nome', 'like', "%$pesquisa%")  // Operarador LIKE do SQL (SELECT * FROM <tabela> WHERE <coluna> LIKE '%pesquisa%')
-                                    ->orWhere('cpf', $pesquisa)
-                                    ->orWhere('cnpj', $pesquisa)->get();
+                                ->orWhere('cpf', $pesquisa)
+                                ->orWhere('cnpj', $pesquisa)
+                                ->get()
+                                ->toArray();
+            }
+
+            /*
+            Pegando todos os clientes e adicionando um novo atributo (um arrray) de dívidas no array
+            de cada cliente. Estou adicionando todas as dívidas de cada cliente no array. Se ele não
+            tiver dívida o array é vazio; caso contrário o array vai ter as N dívidas dele.
+            */
+            foreach ($consulta as &$cliente) {
+                $cliente['dividas'] = AppCliente::leftJoin('app_dividas', 'app_clientes.id', '=', 'app_dividas.cliente_id')
+                                            ->where('app_dividas.cliente_id', $cliente['id'])
+                                            ->get()
+                                            ->toArray();
             }
         }
 
@@ -37,7 +51,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Retorna o formulario que será preenchido
+     * Retorna os formulários que será preenchido
      *
      * @return \Illuminate\Http\Response
      */
@@ -47,15 +61,14 @@ class ClienteController extends Controller
     }
 
     /**
-     * Armazena os dados no banco passando os paramentros da REGEX
+     * Armazena os dados no banco passando os parametros da REGEX
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-
-        //Verifica algumas validações antes de enviar o formulario
+        // Verifica algumas validações antes de enviar o formulario
         $request->validate([
             'tipo_pessoa' => 'required',
             'email' => 'required|unique:app_clientes',
@@ -66,7 +79,12 @@ class ClienteController extends Controller
             'estado' => 'required|max:20'
         ]);
 
-        //REGEX que remove os caracteres da mascara JQUERY nos input's
+        /*
+            Removendo caracteres quem vem das máscaras ('(', ')', '-', ' ', '.', '/') do jQuery usando expressão regular (REGEX).
+            Função preg_replace(regex, valor a ser mudado, string para ser mudada)
+                Exemplo de campo regex:
+                    /[-() ]/ -> O regex vai procurar caracteres '-', '(', ')' e ' '
+        */
 
         $dados = $request->all();  // Pegando todos os dados do request
         $dados['telefone'] = preg_replace('/[-() ]/', '', $dados['telefone']);
@@ -79,9 +97,6 @@ class ClienteController extends Controller
             $dados['telefoneResponsavel'] = preg_replace('/[-() ]/', '', $dados['telefoneResponsavel']);
         }
 
-
-        
-
         AppCliente::create($dados);
         return redirect()->route('cliente.index');
     }
@@ -89,10 +104,10 @@ class ClienteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cliente  $cliente
+     * @param  \App\AppCliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function show(Cliente $cliente)
+    public function show(AppCliente $cliente)
     {
         //
     }
@@ -100,33 +115,37 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cliente  $cliente
+     * @param  \App\AppCliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function edit(AppCliente $cliente)
     {
         //
     }
 
     /**
-     * Update the specified resource in storage.
-     *
+     * Atualiza o campo de 'pagamento efetuado' na tabela de dívidas.
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cliente  $cliente
+     * @param  int  $id_cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, int $id_cliente)
     {
-        //
+        /*
+            Atualiza o campo de pagamento efetuado na tabela de dívidas e redireciona o usuário
+            para a tela de pesquisar cliente, listando todos
+         */
+        AppDivida::where('id_divida', $request->input('id_divida'))->update(['pagamento_efetuado' => 'pago']);
+        return redirect()->route('cliente.index', 'todos=true');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cliente  $cliente
+     * @param  \App\AppCliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy(AppCliente $cliente)
     {
         //
     }

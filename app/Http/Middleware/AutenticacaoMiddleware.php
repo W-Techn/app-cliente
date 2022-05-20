@@ -20,9 +20,8 @@ class AutenticacaoMiddleware
         if(isset($_SESSION['email']) && $_SESSION['email'] != ''){
             
             return $next($request);
-        }else{
+        } else {
             return redirect()->route('app.login', ['erro' => 2]);
         };
-        
     }
 }

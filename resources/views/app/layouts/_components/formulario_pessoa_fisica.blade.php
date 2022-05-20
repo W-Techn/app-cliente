@@ -8,7 +8,7 @@
         <input type="hidden" name="tipo_pessoa" value="1">
 
         <div class="form-floating mb-3 col-md-5 ms-1">
-            <input type="text" name="nome" class="form-control" id="floatingInput" placeholder="Nome"  required>
+            <input type="text" name="nome" class="form-control" id="floatingInput" placeholder="Nome" required>
             <label for="floatingInput">Nome</label>
         </div>
         <div class="form-floating mb-3 col-md-3 ms-1">
