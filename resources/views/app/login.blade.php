@@ -18,7 +18,7 @@
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Senha:</label>
     <input type="password" name="senha" class="form-control" id="exampleInputPassword1">
-    <br>
+    <p class="text-end"><a href=" {{route('app.primeiro-acesso')}} ">Primeiro acesso</a></p>
     {{ $errors->has('senha') ? $errors->first('senha') : '' }}
   </div>
   {{isset($erro) && $erro != '' ? $erro : ''}}

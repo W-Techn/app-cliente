@@ -17,11 +17,46 @@ class LoginController extends Controller
 
         if($request->get('erro') == 2){
             $erro = 'Necessário estar autenticado para acessar esse conteudo';
-        }
+        };
+
+      
 
         return view('app.login', ['erro' => $erro]);
     }
 
+
+
+
+    public function acesso(Request $request){
+
+        //pegando do formulario
+        $remember_token = $request->get('remember_token');
+
+
+       // $usuario = new User;
+
+        $usuario = User::where('remember_token', $remember_token)
+                        ->get()->first();
+
+
+
+        if(isset($usuario->remember_token)){
+            session_start();
+            $_SESSION['id'] = $usuario->id;
+            $_SESSION['nome'] = $usuario->name;
+            $_SESSION['email'] = $usuario->email;
+            $_SESSION['username'] = $usuario->username;
+            $_SESSION['type'] = $usuario->type;
+            $_SESSION['remember_token'] = $usuario->remember_token;
+            
+            //dd($_SESSION);
+
+            return redirect()->route('usuario.show', ['usuario' => $usuario->id]);
+        }else{
+            return view('app.primeiro-acesso');
+            // return redirect()->route('app.primeiro-acesso');
+        }
+    }
 
 
     public function autenticar(Request $request){
@@ -75,7 +110,7 @@ class LoginController extends Controller
 
            return redirect()->route('app.paginainicial');
         }else{
-            return redirect()->route('app.login', ['erro' => 1]);
+            return redirect()->route('app.login');
         }
         
     }
@@ -86,26 +121,7 @@ class LoginController extends Controller
         return redirect()->route('index');
     }
 
-    public function primeiroacesso(Request $request){
-
-        //regra de autenticação
-        $regras = [
-            'senha' => 'required'  
-            ];
     
-        //mensagens de feedback de validação
-        $feedback = [
-            'senha.required' => 'O campo senha é obrigatório'
-        ];
-        
-        $requeste->validate($regras, $feedback);
 
-
-        $admin = AppCliente::find($id);
-        // pegar a senha informada no form
-        $admin->password = $request->get('senha');
-        $admin->save();
-
-
-    }
+    
 }

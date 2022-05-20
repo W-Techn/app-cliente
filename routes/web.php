@@ -16,16 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('login/{erro?}', 'LoginController@erro')->name('app.login');
 Route::post('/login', 'LoginController@autenticar')->name('app.login');
 
+//Route::get('/primeiro-acessso/{erro?}', 'LoginController@erro')->name('app.primeiro-acesso');
+Route::get('/primeiro-acesso', 'LoginController@acesso')->name('app.primeiro-acesso');
+Route::post('/primeiro-acesso', 'LoginController@acesso')->name('app.primeiro-acesso');
+
+
 Route::get('/', 'PrincipalController@index')->name('index');
 
 
-Route::middleware('autenticar.acesso')->prefix('/app')->group(function () {
+Route::middleware('autenticar')->prefix('/app')->group(function () {
 
-    Route::patch('/login/primeiro-acesso', 'LoginController@primeiroacesso')->name('app.primeiroacesso');
 
     Route::get('/sair', 'LoginController@sair')->name('app.sair');
-
-    Route::match(['get','post'], '/alterar-senha', 'AlterarSenhaController@alterarsenha')->name('app.alterarsenha');
 
     Route::match(['get','post'], '/home', 'PaginaInicialController@home')->name('app.paginainicial');
 
@@ -37,9 +39,10 @@ Route::middleware('autenticar.acesso')->prefix('/app')->group(function () {
 
     Route::resource('cliente', 'ClienteController');
 
-    Route::middleware('acesso.admin')->group(function () {
-        Route::get('/cadastrar-usuario', 'CadastrarUsuarioController@cadastrarusuario')->name('app.cadastro-usuario');
-        Route::post('/cadastrar-usuario', 'CadastrarUsuarioController@cadastrarusuario')->name('app.cadastro-usuario');
+
+    Route::middleware('admin')->group(function () {
+        
+        Route::resource('usuario', 'UsuarioController');
     });
 });
 
