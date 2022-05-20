@@ -138,7 +138,7 @@
 
                                                                 <input type="hidden" name="id_divida" value="{{ $divida['id_divida'] }}">
 
-                                                                <button type="submit" class="btn btn-primary btn-sm">Já efetuou o pagamento</button>
+                                                                <button type="submit" class="btn btn-primary btn-sm">Finalizar dívida</button>
                                                             </form>
                                                         </td>
                                                     @else  {{-- Se a dívida já foi paga --}}
