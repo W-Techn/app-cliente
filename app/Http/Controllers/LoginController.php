@@ -31,24 +31,24 @@ class LoginController extends Controller
     public function acesso(Request $request){
 
         //pegando do formulario
-        $remember_token = $request->get('remember_token');
+        $codigo = $request->get('codigo');
 
 
        // $usuario = new User;
 
-        $usuario = User::where('remember_token', $remember_token)
+        $usuario = User::where('codigo', $codigo)
                         ->get()->first();
 
 
 
-        if(isset($usuario->remember_token)){
+        if(isset($usuario->codigo)){
             session_start();
             $_SESSION['id'] = $usuario->id;
             $_SESSION['nome'] = $usuario->name;
             $_SESSION['email'] = $usuario->email;
             $_SESSION['username'] = $usuario->username;
             $_SESSION['type'] = $usuario->type;
-            $_SESSION['remember_token'] = $usuario->remember_token;
+            $_SESSION['codigo'] = $usuario->codigo;
             
             //dd($_SESSION);
 

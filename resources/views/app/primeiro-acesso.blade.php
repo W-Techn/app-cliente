@@ -10,7 +10,7 @@
     @csrf
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Código de acesso:</label>
-    <input type="text" name="remember_token" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+    <input type="text" name="codigo" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
     <div id="emailHelp" class="form-text">Insira o código enviado via email para acesso</div>
     <br>
   </div>
