@@ -40,7 +40,7 @@
         </div>
 
         {{--Habilitando apenas para administradores--}}
-        @if($_SESSION['type'] == 1)
+        @if($_SESSION['tipo_acesso'] == 1)
           <div class="col d-flex align-items-start">
           <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
             <svg class="bi" width="1em" height="1em"><use xlink:href="#admin"/></svg>

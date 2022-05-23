@@ -11,7 +11,7 @@
                 <br>
                 <input name="password" value="{{ old('password') }}" type="password" placeholder="Senha">
                 <br>
-                <input name="remember_token" value="{{ $usuario->remember_token }}" type="text">
+                <input name="codigo" value="{{ $usuario->codigo }}" type="hidden">
                 <br>
                 <br>
                 <button type="submit">ENVIAR</button>

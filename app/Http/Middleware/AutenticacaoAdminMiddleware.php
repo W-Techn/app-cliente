@@ -15,7 +15,7 @@ class AutenticacaoAdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $tipo = $_SESSION['type'];
+        $tipo = $_SESSION['tipo_acesso'];
 
         if($tipo == 1){
             return $next($request);
