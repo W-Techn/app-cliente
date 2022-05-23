@@ -26,17 +26,17 @@ Route::get('/', 'PrincipalController@index')->name('index');
 
 Route::middleware('autenticar')->prefix('/app')->group(function () {
 
-
     Route::get('/sair', 'LoginController@sair')->name('app.sair');
 
     Route::match(['get','post'], '/home', 'PaginaInicialController@home')->name('app.paginainicial');
 
+
+
+
     Route::resource('divida', 'DividaController');
     Route::resource('cliente', 'ClienteController');
 
-
     Route::middleware('admin')->group(function () {
-        
         Route::resource('usuario', 'UsuarioController');
     });
 });
