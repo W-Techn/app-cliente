@@ -2,100 +2,96 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\AppUsuario;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
     /**
-     * Index, lista o usuario cadastrado/logado.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = $_SESSION;
-
-        return view('app.usuario.index', ['user' => $user]);
+       $usuario = $_SESSION; 
+       return view('app.usuario.index' ,['usuario'=> $usuario]); 
     }
 
     /**
-     * Apresenta o formulario de criação de usuario.
+     * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        
-        return view('app.usuario.create');
+       return view('app.usuario.create');
     }
 
     /**
-     * Metodo de criar/armazenar os dados do formulario create.
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        User::create($request->all());
+        AppUsuario::create($request->all());
         return view('app.usuario.create');
     }
 
     /**
-     * Direcionando, apresentando o usuario.
+     * Display the specified resource.
      *
-     * @param  \App\User  $usuario
+     * @param  \App\AppUsuario  $appUsuario
      * @return \Illuminate\Http\Response
      */
-    public function show(User $usuario)
+    public function show(AppUsuario $usuario)
     {
         //dd($usuario);
-        return view('app.usuario.show', ['usuario' => $usuario]);
+        return view('app.usuario.show' ,['usuario'=> $usuario]); 
+
     }
 
-
     /**
-     * Apresentar formulario de edição de usuario, retornando seus dados..
+     * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $usuario
+     * @param  \App\AppUsuario  $appUsuario
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $usuario)
+    public function edit(AppUsuario $usuario)
     {
-        return view('app.usuario.edit', ['usuario' => $usuario]);
-        //dd($usuario);
+        return view('app.usuario.edit' ,['usuario'=> $usuario]); 
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\AppUsuario  $appUsuario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $usuario)
+    public function update(Request $request, AppUsuario $usuario)
     {
-        // dd($request->all());
-        $dados = $request->all();
-    
-       $dados['remember_token'] = null;
+        //dd($request->all());
+       $dados=$request->all();
+       $dados['codigo']=null;
        $usuario->update($dados);
-       //dd($dados);
+
 
        session_destroy();
-
        return redirect()->route('app.login');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\AppUsuario  $appUsuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(AppUsuario $appUsuario)
     {
         //
     }

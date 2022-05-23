@@ -3,13 +3,13 @@
             <form method="post" action="{{ route('usuario.update', ['usuario' => $usuario->id]) }}">
                 @csrf
                 @method('PATCH')
-                <input name="name" value="{{ $usuario->nome ?? old('name')}}" type="text" placeholder="Nome Completo">
+                <input name="nome" value="{{ $usuario->nome ?? old('name')}}" type="text" placeholder="Nome Completo">
                 <br>
-                <input name="username" value="{{ $usuario->nome_login ?? old('username') }}" type="text" placeholder="Apelido">
+                <input name="nome_login" value="{{ $usuario->nome_login ?? old('username') }}" type="text" placeholder="Apelido">
                 <br>
                 <input name="email" value="{{ $usuario->email ?? old('email') }}" type="text" placeholder="E-mail">
                 <br>
-                <input name="password" value="{{ old('password') }}" type="password" placeholder="Senha">
+                <input name="senha" value="{{ old('senha') }}" type="password" placeholder="Senha">
                 <br>
                 <input name="codigo" value="{{ $usuario->codigo }}" type="hidden">
                 <br>
