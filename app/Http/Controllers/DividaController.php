@@ -15,28 +15,45 @@ class DividaController extends Controller
      */
     public function index()
     {
-        return view('app.cadastrar_divida');
+        //
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Retorna o formulário que será preenchido
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('app.divida.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Armazena os dados no banco após passar pela validação e pelo REGEX
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        /** @var array Definindo as regras para validação dos campos. */
+        $regras = [
+            'nome_divida' => 'required',
+            'valor_divida' => 'required',
+            'data_divida' => 'required',
+            'contrato_divida' => 'required',
+            'credor_divida' => 'required',
+            'descricao_divida' => 'required',
+        ];
+
+        $request->validate($regras);
+
+        // Tirando caracteres da máscara do campo de valor e gravando no BD na tabela de dívidas:
+        $dados = $request->all();
+        $dados['valor_divida'] = preg_replace('/[.]/', '', $dados['valor_divida']);
+        $dados['valor_divida'] = preg_replace('/[,]/', '.', $dados['valor_divida']);
+
+        AppDivida::create($dados);
     }
 
     /**

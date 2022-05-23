@@ -58,6 +58,7 @@
             $("#telefone_responsavel").mask("(99) 9 9999-9999");
             $("#cep_pf").mask("99999-999");
             $("#cep_pj").mask("99999-999");
+            $('#valor_divida').mask('000.000.000.000.000,00', {reverse: true});
         });
     </script>
 

@@ -4,6 +4,7 @@
 
 @section('conteudo')
 
-<h3>Cadastro de dívidas</h3>
+{{-- Incluindo o formulário de cadastro de dívida --}}
+@include('app.layouts._components.formulario_divida')
 
 @endsection
