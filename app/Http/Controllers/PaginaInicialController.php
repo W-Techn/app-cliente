@@ -8,7 +8,7 @@ class PaginaInicialController extends Controller
 {
     public function home()
     {
-        return view('app.paginainicial');
+        return view('app.home');
     }
     
 }

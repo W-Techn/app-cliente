@@ -13,7 +13,7 @@ class CreateAppUsuariosTable extends Migration
      */
     public function up()
     {
-        Schema::create('app_usuarios', function (Blueprint $table) {
+        Schema::create('app.usuario.create', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->string('email');
