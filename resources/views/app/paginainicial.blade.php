@@ -48,7 +48,7 @@
           <div>
             <h2>Usuários</h2>
             <p>Acesso restrito. Apenas Administradores conseguem acessar</p>
-              <a href="{{ url('/app/cadastrar-usuario') }}" class="btn btn-sm btn-primary">
+              <a href="{{ url('/app/usuario/create') }}" class="btn btn-sm btn-primary">
               Acessar
             </a>
             {{-- Caso seja melhor habilitar para todos os usuarios a visualização, mas apenas interação para adm, descomentar o codigo abaixo
