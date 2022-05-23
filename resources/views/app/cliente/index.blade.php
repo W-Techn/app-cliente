@@ -22,7 +22,6 @@
             <a type="button" href="{{ route('cliente.index', 'todos=true') }}" class="btn btn-secondary mb-3">Listar todos</a>
         </div>
 
-
     </form>
 </div>
 

@@ -1,9 +1,11 @@
 
 <div class="container mt-5 text-center">
-    <h2>Cadastro de dívida</h2>
+    <h3>Cadastro de dívida para {{ $cliente->nome ?? $cliente->razaoSocial }}</h3>
 
-    <form action="{{ route('divida.store') }}" class="row g-1 justify-content-center" method="POST">
+    <form action="{{ route('divida.store') }}" class="row g-1 justify-content-center mt-3" method="POST">
         @csrf
+
+        <input type="hidden" name="cliente_id" value="{{ $cliente->id }}">
 
         <div class="form-floating mb-3 col-md-6 me-1">
             <input type="text" name="nome_divida" class="form-control" id="floatingInput" placeholder="Nome" required>

@@ -16,17 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('login/{erro?}', 'LoginController@erro')->name('app.login');
 Route::post('/login', 'LoginController@autenticar')->name('app.login');
 
-//Route::get('/primeiro-acessso/{erro?}', 'LoginController@erro')->name('app.primeiro-acesso');
 Route::get('/primeiro-acesso', 'LoginController@acesso')->name('app.primeiro-acesso');
 Route::post('/primeiro-acesso', 'LoginController@acesso')->name('app.primeiro-acesso');
 
-
 Route::get('/', 'PrincipalController@index')->name('index');
 
-
 Route::middleware('autenticar')->prefix('/app')->group(function () {
-
-
     Route::get('/sair', 'LoginController@sair')->name('app.sair');
 
     Route::match(['get','post'], '/home', 'PaginaInicialController@home')->name('app.paginainicial');
@@ -34,9 +29,7 @@ Route::middleware('autenticar')->prefix('/app')->group(function () {
     Route::resource('divida', 'DividaController');
     Route::resource('cliente', 'ClienteController');
 
-
     Route::middleware('admin')->group(function () {
-        
         Route::resource('usuario', 'UsuarioController');
     });
 });

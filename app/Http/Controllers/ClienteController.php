@@ -21,7 +21,7 @@ class ClienteController extends Controller
 
         $consulta = "";
 
-        if (count($request->all()) != 0) {          // Entra se houver requisição. Se a consulta for feita, a solicitação não vai estar vazia
+        if (count($request->all()) != 0) {          // Entra se houver requisição. Se a consulta for feita, a requisição não vai estar vazia
             if (isset($request->all()['todos'])) {  // Entra se o usuário pedir para listar todos os clientes
                 $consulta = AppCliente::all()->toArray();
             } else {
@@ -35,9 +35,9 @@ class ClienteController extends Controller
             }
 
             /*
-            Pegando todos os clientes e adicionando um novo atributo (um arrray) de dívidas no array
-            de cada cliente. Estou adicionando todas as dívidas de cada cliente no array. Se ele não
-            tiver dívida o array é vazio; caso contrário o array vai ter as N dívidas dele.
+                Pegando todos os clientes e adicionando um novo atributo (um arrray) de dívidas no array
+                de cada cliente. Estou adicionando todas as dívidas de cada cliente no array. Se ele não
+                tiver dívida o array é vazio; caso contrário o array vai ter as N dívidas dele.
             */
             foreach ($consulta as &$cliente) {
                 $cliente['dividas'] = AppCliente::leftJoin('app_dividas', 'app_clientes.id', '=', 'app_dividas.cliente_id')

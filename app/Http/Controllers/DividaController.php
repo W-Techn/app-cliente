@@ -3,29 +3,46 @@
 namespace App\Http\Controllers;
 
 use App\AppDivida;
+use App\AppCliente;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class DividaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listagem de clientes com base na pesquisa feita
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $consulta = "";
+
+        if (count($request->all()) != 0) {  // Entra se houver requisição
+            $pesquisa = $request->all()['pesquisa'];
+
+            $consulta = AppCliente::where('nome', 'like', ('%' . $pesquisa . '%'))
+                            ->orWhere('cpf', $pesquisa)
+                            ->orWhere('cnpj', $pesquisa)
+                            ->orWhere('razaoSocial', 'like', ('%' . $pesquisa . '%'))
+                            ->get();
+        }
+
+        return view('app.divida.index', ['consulta' => $consulta]);
     }
 
     /**
      * Retorna o formulário que será preenchido
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('app.divida.create');
+        /* Manda por parâmetro o cliente escolhido pelo usuário para cadastrar a dívida. */
+        $cliente = AppCliente::find($request->input('cliente'));
+        return view('app.divida.create', ['cliente' => $cliente]);
     }
 
     /**
@@ -54,6 +71,7 @@ class DividaController extends Controller
         $dados['valor_divida'] = preg_replace('/[,]/', '.', $dados['valor_divida']);
 
         AppDivida::create($dados);
+        return redirect()->route('app.home');
     }
 
     /**
