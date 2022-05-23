@@ -16,10 +16,9 @@ class AutenticacaoMiddleware
     public function handle($request, Closure $next)
     {
         session_start();
-
-        // $tipo = $_SESSION['type'];
-
-        if (isset($_SESSION['email']) && $_SESSION['email'] != '') {
+        
+        if(isset($_SESSION['email']) && $_SESSION['email'] != ''){
+            
             return $next($request);
         } else {
             return redirect()->route('app.login', ['erro' => 2]);

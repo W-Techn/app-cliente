@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\AppUsuario;
 
 class LoginController extends Controller
 {
@@ -18,16 +18,50 @@ class LoginController extends Controller
 
         if ($request->get('erro') == 2) {
             $erro = 'Necessário estar autenticado para acessar esse conteudo';
-        }
+        };
+
+      
 
         return view('app.login', ['erro' => $erro]);
     }
 
 
 
-    public function autenticar(Request $request)
-    {
 
+    public function acesso(Request $request){
+
+        //pegando do formulario
+        $codigo = $request->get('codigo');
+
+
+       // $usuario = new User;
+
+        $usuario = AppUsuario::where('codigo', $codigo)
+                        ->get()->first();
+
+
+
+        if(isset($usuario->codigo)){
+            session_start();
+            $_SESSION['id'] = $usuario->id;
+            $_SESSION['nome'] = $usuario->nome;
+            $_SESSION['email'] = $usuario->email;
+            $_SESSION['nome_login'] = $usuario->nome_login;
+            $_SESSION['tipo_acesso'] = $usuario->tipo_acesso;
+            $_SESSION['codigo'] = $usuario->codigo;
+            
+            //dd($_SESSION);
+
+            return redirect()->route('usuario.show', ['usuario' => $usuario->id]);
+        }else{
+            return view('app.primeiro-acesso');
+            // return redirect()->route('app.primeiro-acesso');
+        }
+    }
+
+
+    public function autenticar(Request $request){
+        
         //regra de autenticação
         $regras = [
           'usuario' => 'required',
@@ -44,17 +78,17 @@ class LoginController extends Controller
         $request->validate($regras, $feedback);
 
         //Recuperar os dados do formulario
-        $username = $request->get('usuario');
-        $password = $request->get('senha');
+        $nome_login = $request->get('usuario');
+        $senha = $request->get('senha');
 
 
         //Reaproveitando o model User do laravel
-        $user = new User();
+        $user = new AppUsuario();
 
-        $usuario = $user->where('username', $username)
-                        ->where('password', $password)
-                        ->orWhere('email', $username)
-                        ->where('password', $password)
+        $usuario = $user->where('nome_login', $nome_login)
+                        ->where('senha', $senha)
+                        ->orWhere('email', $nome_login)
+                        ->where('senha', $senha)
                         ->get()->first();
 
 
@@ -66,18 +100,18 @@ class LoginController extends Controller
             $_SESSION-> superGlobal, no qual pega o dado do db verificado com o input
         */
 
-        if (isset($usuario->name)) {
+        if (isset($usuario->nome)) {
             session_start();
-            $_SESSION['nome'] = $usuario->name;
+            $_SESSION['nome'] = $usuario->nome;
             $_SESSION['email'] = $usuario->email;
-            $_SESSION['username'] = $usuario->username;
-            $_SESSION['type'] = $usuario->type;
+            $_SESSION['nome_login'] = $usuario->nome_login;
+            $_SESSION['tipo_acesso'] = $usuario->tipo_acesso;
 
         //dd($_SESSION);
 
-            return redirect()->route('app.paginainicial');
-        } else {
-            return redirect()->route('app.login', ['erro' => 1]);
+           return redirect()->route('app.paginainicial');
+        }else{
+            return redirect()->route('app.login');
         }
     }
 
@@ -88,25 +122,7 @@ class LoginController extends Controller
         return redirect()->route('index');
     }
 
-    public function primeiroacesso(Request $request)
-    {
+    
 
-        //regra de autenticação
-        $regras = [
-            'senha' => 'required'
-            ];
-
-        //mensagens de feedback de validação
-        $feedback = [
-            'senha.required' => 'O campo senha é obrigatório'
-        ];
-
-        $requeste->validate($regras, $feedback);
-
-
-        $admin = AppCliente::find($id);
-        // pegar a senha informada no form
-        $admin->password = $request->get('senha');
-        $admin->save();
-    }
+    
 }
