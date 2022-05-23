@@ -28,7 +28,7 @@ class CreateAppUsuariosTable extends Migration
             $table->string('senha');
             $table->string('nome_login');
             $table->boolean('tipo_acesso');
-            $table->string('token');
+            $table->string('codigo')->nullable();
             $table->timestamps();
         });
     }
