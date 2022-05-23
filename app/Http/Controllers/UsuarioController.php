@@ -17,8 +17,6 @@ class UsuarioController extends Controller
     {
         $user = $_SESSION;
 
-        //dd($user);
-
         return view('app.usuario.index', ['user' => $user]);
     }
 
@@ -53,7 +51,7 @@ class UsuarioController extends Controller
      */
     public function show(User $usuario)
     {
-        dd($usuario);
+        //dd($usuario);
         return view('app.usuario.show', ['usuario' => $usuario]);
     }
 

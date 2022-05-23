@@ -41,7 +41,7 @@
         </div>
         
         <div class="col-md-2">
-        <label for="dataNasc" class="dataNasc">Data de nascimento</label> 
+        <label for="dataNasc" class="DataNasc">Data de nascimento</label> 
         <input type="text" class="form-control" id="dataNasc" placeholder="00/00/0000" required>
         </div>
 
@@ -56,7 +56,7 @@
         </div> 
         {{--botão de envio--}}
         <div class="col-md-3">
-        <label for="cidade" class="bairro">Cidade</label> 
+        <label for="cidade" class="cidade">Cidade</label> 
         <input type="text" class="form-control" id="cidade" placeholder="São Paulo" required>
         </div>
 

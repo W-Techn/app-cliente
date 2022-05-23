@@ -33,9 +33,9 @@
 
                     <tbody>
                             <tr>
-                                <td>{{ $user['nome'] }}</td>
-                                <td>{{ $user['username'] }}</td>
-                                <td>{{ $user['email']}}</td>
+                                <td>{{ $usuario['nome'] }}</td>
+                                <td>{{ $usuario['username'] }}</td>
+                                <td>{{ $usuario['email']}}</td>
                                 <td><a href="">Excluir</a></td>
                                 <td><a href="">Editar</a></td>
                             </tr>
