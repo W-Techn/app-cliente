@@ -1,16 +1,22 @@
-    <div>
-        <div>
+ @extends('app.layouts._components.cabecalho_e_rodape')
+
+@section('titulo', 'Primeiro Acesso')
+
+@section('conteudo')
+ 
+ 
+ 
+ 
+    <div class="container">
+        <h1>Seja bem vindo! {{ $usuario->nome }}.</h1>
+            <div class="alert alert-warning" role="alert">
+                Para continuar, é necessário que edite sua Nova Senha!
+            </div>
         
-            <table border="1">
-                <tr>
-                    <td>Nome:</td>
-                    <td>{{ $usuario->nome }}</td>
-                </tr>  
-                <tr>
-                    <a href="{{ route('usuario.edit', ['usuario' => $usuario]) }}">Editar</a>
-                </tr>
-            </table>
-        
-        </div>
+        <a class="btn btn-primary" href="{{ route('usuario.edit', ['usuario' => $usuario]) }}">Editar</a>
     </div>
-</div>
+
+
+
+
+@endsection
