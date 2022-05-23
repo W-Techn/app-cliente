@@ -6,7 +6,7 @@
 
 
 <div class="container">
-<h1>Olá, seja bem vindo {{$usuario['nome']}}</h1>
+<h1>Olá! Seja bem-vindo, {{$usuario['nome']}}</h1>
 <p>Aqui estão suas informações!</p>
 
 <table class="table">
@@ -24,12 +24,12 @@
       <td>{{$usuario['email']}}</td>
     </tr>
     </table>
-</div>            
+</div>
 
 
 
 
-            
+
     {{-- </div>
 
     <div class="menu">

@@ -29,6 +29,7 @@ class CreateAppClientesTable extends Migration
             $table->string('cnpj', 18)->unique()->nullable();
             $table->string('nomeResponsavel', 50)->nullable();
             $table->string('telefoneResponsavel', 16)->nullable();
+            $table->string('cadastrado_por', 50);
             $table->timestamps();
         });
     }

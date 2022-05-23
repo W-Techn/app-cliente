@@ -13,7 +13,7 @@ class CreateAppUsuariosTable extends Migration
      */
     public function up()
     {
-        Schema::create('app.usuario.create', function (Blueprint $table) {
+        Schema::create('app_usuarios', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->string('email');
@@ -23,7 +23,7 @@ class CreateAppUsuariosTable extends Migration
             $table->string('cidade');
             $table->string('estado');
             $table->string('cep');
-            $table->string('telefone_residencial');
+            $table->string('telefone_residencial')->nullable();
             $table->string('telefone_celular');
             $table->string('senha');
             $table->string('nome_login');

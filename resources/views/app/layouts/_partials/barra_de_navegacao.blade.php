@@ -19,7 +19,7 @@
                         <a href="{{ route('cliente.index') }}" class="nav-link">Clientes</a>
                     </li>
                     <li>
-                        <a href="{{ url('/app/cadastrar-divida') }}" class="nav-link">Dívidas</a>
+                        <a href="{{ route('divida.index') }}" class="nav-link">Dívidas</a>
                     </li>
                     <li>
                         <a href="{{ url('/app/sair') }}" class="nav-link">Sair</a>

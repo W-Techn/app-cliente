@@ -7,6 +7,9 @@
         {{-- Informa o tipo de pessoa (PF=1 ou PJ=2) para o banco de dados --}}
         <input type="hidden" name="tipo_pessoa" value="1">
 
+        {{-- Guarda o nome do usuário que fez o cadastro do cliente --}}
+        <input type="hidden" name="cadastrado_por" value="{{ $_SESSION['nome'] }}">
+
         <div class="form-floating mb-3 col-md-5 ms-1">
             <input type="text" name="nome" class="form-control" id="floatingInput" placeholder="Nome" required>
             <label for="floatingInput">Nome</label>

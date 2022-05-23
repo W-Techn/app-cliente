@@ -22,10 +22,10 @@ class DividaController extends Controller
         if (count($request->all()) != 0) {  // Entra se houver requisição
             $pesquisa = $request->all()['pesquisa'];
 
-            $consulta = AppCliente::where('nome', 'like', ('%' . $pesquisa . '%'))
-                            ->orWhere('cpf', $pesquisa)
-                            ->orWhere('cnpj', $pesquisa)
-                            ->orWhere('razaoSocial', 'like', ('%' . $pesquisa . '%'))
+            $consulta = AppCliente::where('nome', 'like', "%$pesquisa%")
+                            ->orWhere('cpf', 'like', "%$pesquisa%")
+                            ->orWhere('cnpj', 'like', "%$pesquisa%")
+                            ->orWhere('razaoSocial', 'like', "%$pesquisa%")
                             ->get();
         }
 
@@ -71,7 +71,7 @@ class DividaController extends Controller
         $dados['valor_divida'] = preg_replace('/[,]/', '.', $dados['valor_divida']);
 
         AppDivida::create($dados);
-        return redirect()->route('app.home');
+        return redirect()->route('app.paginainicial');
     }
 
     /**

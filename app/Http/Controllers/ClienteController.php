@@ -28,8 +28,8 @@ class ClienteController extends Controller
                 $pesquisa = $request->all()['pesquisa'];
 
                 $consulta = AppCliente::where('nome', 'like', "%$pesquisa%")  // Operarador LIKE do SQL (SELECT * FROM <tabela> WHERE <coluna> LIKE '%pesquisa%')
-                                ->orWhere('cpf', $pesquisa)
-                                ->orWhere('cnpj', $pesquisa)
+                                ->orWhere('cpf', 'like', "%$pesquisa%")
+                                ->orWhere('cnpj', 'like', "%$pesquisa%")
                                 ->get()
                                 ->toArray();
             }

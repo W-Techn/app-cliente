@@ -89,7 +89,7 @@
                                         <p class="d-inline ms-5"><strong>CNPJ:</strong> {{ $cliente['cnpj'] }}</p>
                                     @endif
 
-                                    <p class="d-inline ms-5"><strong>Cadastrado no sistema por:</strong> ABCDE</p>
+                                    <p class="d-inline ms-5"><strong>Cadastrado no sistema por:</strong> {{ $cliente['cadastrado_por'] }}</p>
                                 </div>
 
                                 {{-- Listando as dívidas do cliente: --}}

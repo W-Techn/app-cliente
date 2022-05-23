@@ -20,25 +20,29 @@
 </div>
 
 @if ($consulta != "")  {{-- Se houver alguma consulta --}}
-    <div class="container mt-5 mb-5">
-        <div class="list-group">
+    @if ($consulta->count() > 0)
+        <div class="container mt-5 mb-5">
+            <div class="list-group">
 
-            @foreach ($consulta as $cliente)
-                <a href="{{ route('divida.create', ['cliente' => $cliente->id]) }}" class="list-group-item list-group-item-action border-1 mb-3">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ $cliente->nome ?? $cliente->razaoSocial }}</h5>
-                    </div>
+                @foreach ($consulta as $cliente)
+                    <a href="{{ route('divida.create', ['cliente' => $cliente->id]) }}" class="list-group-item list-group-item-action border-1 mb-3">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ $cliente->nome ?? $cliente->razaoSocial }}</h5>
+                        </div>
 
-                    @if ($cliente->cpf != null)
-                        <p class="mb-1"><strong>CPF:</strong> {{ $cliente->cpf }}</p>
-                    @else
-                        <p class="mb-1"><strong>CNPJ:</strong> {{ $cliente->cnpj }}</p>
-                    @endif
-                </a>
-            @endforeach
+                        @if ($cliente->cpf != null)
+                            <p class="mb-1"><strong>CPF:</strong> {{ $cliente->cpf }}</p>
+                        @else
+                            <p class="mb-1"><strong>CNPJ:</strong> {{ $cliente->cnpj }}</p>
+                        @endif
+                    </a>
+                @endforeach
 
+            </div>
         </div>
-    </div>
+    @else
+        <h3 class="text-muted text-center">Cliente não encontrado. Tente novamente</h3>
+    @endif
 @endif
 
 @endsection
