@@ -48,17 +48,17 @@
 
         <div class="col-md-3">
         <label for="cep" class="cep">Cep</label>
-        <input name="cep" type="text" class="form-control" id="cep" placeholder="00000-000" required>
+        <input name="cep" type="text" class="form-control" id="cep_usuario" placeholder="00000-000" required>
         </div>
 
         <div class="col-md-4">
         <label for="telefoneResi" class="TelefoneResi">Telefone residêncial</label>
-        <input name="telefone_residencial" type="text" class="form-control" id="telefoneResi" placeholder="(11) 0000-0000">
+        <input name="telefone_residencial" type="text" class="form-control" id="telefone_residencial_usuario" placeholder="(11) 0000-0000">
         </div>
 
         <div class="col-md-4">
         <label for="telefoneCel" class="telefoneCel">Telefone celular</label>
-        <input name="telefone_celular" type="text" class="form-control" id="telefoneCel" placeholder="(11) 00000-0000" required>
+        <input name="telefone_celular" type="text" class="form-control" id="telefone_celular_usuario" placeholder="(11) 00000-0000" required>
         </div>
 
         <div class="col-md-6">

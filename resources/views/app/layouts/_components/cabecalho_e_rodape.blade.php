@@ -64,6 +64,10 @@
             $("#cep_pf").mask("99999-999");
             $("#cep_pj").mask("99999-999");
             $('#valor_divida').mask('000.000.000.000.000,00', {reverse: true});
+            $("#telefone_celular_usuario").mask("(99) 9 9999-9999");
+            $("#telefone_residencial_usuario").mask("(99) 9999-9999");
+            $("#cep_usuario").mask("99999-999");
+
         });
     </script>
 

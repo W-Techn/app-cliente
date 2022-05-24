@@ -36,8 +36,15 @@ class UsuarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        AppUsuario::create($request->all());
+    { 
+    /*Removendo caracteres que vem das máscaras do Jquery: ('(',')', '-',). Utilizando a expressão (REGEX)*/ 
+        $dados = $request->all();  // Pegando todos os dados do request
+        $dados['telefone_residencial'] = preg_replace('/[-() ]/', '', $dados['telefone_residencial']);
+        $dados['telefone_celular'] = preg_replace('/[-() ]/', '', $dados['telefone_celular']);
+        $dados['cep'] = preg_replace('/[-]/', '', $dados['cep']);
+
+
+        AppUsuario::create($dados);
         return view('app.usuario.create');
     }
 
