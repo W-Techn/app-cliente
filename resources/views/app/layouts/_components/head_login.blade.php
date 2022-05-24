@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cliente devedor - @yield('titulo')</title>
 
+    {{--FAVICON--}}
+    <link rel="icon" href="{{ url('css/favicon.png') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('css/style.css') }}">
+
     {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
