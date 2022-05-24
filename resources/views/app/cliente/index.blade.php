@@ -43,8 +43,8 @@
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>  {{-- Número da iteração do loop --}}
 
-                        {{-- Se ele for PF, mostra o nome; se for PJ, mostra a Razão Social --}}
-                        <td>{{ $cliente['cpf'] != null ? $cliente['nome'] : $cliente['razaoSocial'] }}</td>
+                        {{-- Se ele for PF, mostra o nome; se for PJ, mostra o nome do responsável --}}
+                        <td>{{ $cliente['cpf'] != null ? $cliente['nome'] : $cliente['nomeResponsavel'] }}</td>
 
                         {{-- Se ele for PF, mostra o CPF; se for PJ, mostra o CNPJ --}}
                         <td>{{ $cliente['cpf'] != null ? $cliente['cpf'] : $cliente['cnpj'] }}</td>
@@ -86,6 +86,7 @@
                                     @if ($cliente['cpf'] != null)
                                         <p class="d-inline ms-5"><strong>CPF:</strong> {{ $cliente['cpf'] }}</p>
                                     @else
+                                        <p class="d-inline ms-5"><strong>Razão Social:</strong> {{ $cliente['razaoSocial'] }}</p>
                                         <p class="d-inline ms-5"><strong>CNPJ:</strong> {{ $cliente['cnpj'] }}</p>
                                     @endif
 

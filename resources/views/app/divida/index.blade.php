@@ -27,13 +27,13 @@
                 @foreach ($consulta as $cliente)
                     <a href="{{ route('divida.create', ['cliente' => $cliente->id]) }}" class="list-group-item list-group-item-action border-1 mb-3">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{ $cliente->nome ?? $cliente->razaoSocial }}</h5>
+                            <h5 class="mb-1">{{ $cliente->nome ?? $cliente->nomeResponsavel }}</h5>
                         </div>
 
                         @if ($cliente->cpf != null)
                             <p class="mb-1"><strong>CPF:</strong> {{ $cliente->cpf }}</p>
                         @else
-                            <p class="mb-1"><strong>CNPJ:</strong> {{ $cliente->cnpj }}</p>
+                            <p class="mb-1"><strong>CNPJ:</strong> {{ $cliente->cnpj }} | <strong>Razão Social:</strong> {{ $cliente->razaoSocial }}</p>
                         @endif
                     </a>
                 @endforeach
