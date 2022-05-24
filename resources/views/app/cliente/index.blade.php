@@ -81,7 +81,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="d-flex justify-content-center">
-                                    <p class="d-inline"><strong>Nome:</strong> {{ $cliente['nome'] != null ? $cliente['nome'] : $cliente['razaoSocial'] }}</p>
+                                    <p class="d-inline"><strong>Nome:</strong> {{ $cliente['nome'] != null ? $cliente['nome'] : $cliente['nomeResponsavel'] }}</p>
 
                                     @if ($cliente['cpf'] != null)
                                         <p class="d-inline ms-5"><strong>CPF:</strong> {{ $cliente['cpf'] }}</p>
